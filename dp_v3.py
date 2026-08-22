@@ -39,21 +39,44 @@ GEMINI_MODEL_FALLBACK = "gemini-2.5-flash"  # stable fallback if primary is unav
 GEMINI_URL_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
 
-def get_gemini_api_key() -> str:
+def get_gemini_api_key():
     """
-    Resolve the Gemini API key with production-safe priority:
-    1. Streamlit secrets (st.secrets["GEMINI_API_KEY"]) - set via Streamlit Cloud's
-       'Manage app' -> 'Secrets' panel, or a local .streamlit/secrets.toml (gitignored).
-    2. Environment variable GEMINI_API_KEY - useful for Docker/other hosts.
-    3. Empty string - triggers a manual sidebar entry, for local testing only.
+    Resolve the Gemini API key with production-safe priority, returning (key, source).
+    source is one of: "secrets", "secrets-nested", "env", "" (not found).
+
+    1. st.secrets["GEMINI_API_KEY"] - top-level key in secrets.toml / Streamlit Cloud Secrets.
+    2. One level of nesting, e.g. secrets.toml written as:
+           [gemini]
+           GEMINI_API_KEY = "..."
+       (covers the common mistake of putting the key under a section header).
+    3. Environment variable GEMINI_API_KEY.
+    4. Not found -> caller falls back to a manual sidebar box (local testing only).
     """
     try:
         if "GEMINI_API_KEY" in st.secrets:
-            return st.secrets["GEMINI_API_KEY"]
+            return st.secrets["GEMINI_API_KEY"], "secrets"
+        for _, value in st.secrets.items():
+            if isinstance(value, dict) and "GEMINI_API_KEY" in value:
+                return value["GEMINI_API_KEY"], "secrets-nested"
     except Exception:
-        # st.secrets raises if no secrets.toml exists at all (e.g. fresh local clone)
+        # st.secrets raises if no secrets.toml/Secrets panel is configured at all
         pass
-    return os.environ.get("GEMINI_API_KEY", "")
+
+    env_key = os.environ.get("GEMINI_API_KEY", "")
+    if env_key:
+        return env_key, "env"
+    return "", ""
+
+
+def _secrets_diagnostic():
+    """Returns a human-readable summary of what st.secrets currently sees, with no key values exposed."""
+    try:
+        keys = list(st.secrets.keys())
+        if not keys:
+            return "Streamlit secrets are configured but currently empty."
+        return f"Top-level secret keys found: {', '.join(keys)}"
+    except Exception as e:
+        return f"No secrets.toml / Secrets panel detected at all ({e})."
 
 
 def _call_gemini(api_key: str, prompt: str, model: str) -> str:
@@ -185,18 +208,35 @@ if "history" not in st.session_state:
 
 with st.sidebar:
     st.subheader("⚙️ Gemini API Settings")
-    resolved_key = get_gemini_api_key()
+    resolved_key, key_source = get_gemini_api_key()
 
     if resolved_key:
         gemini_api_key = resolved_key
-        st.success("🔒 API key loaded securely from Streamlit secrets/environment.")
+        label = {"secrets": "Streamlit secrets", "secrets-nested": "Streamlit secrets (nested section)",
+                  "env": "environment variable"}[key_source]
+        st.success(f"🔒 API key loaded from {label}.")
+        if key_source == "secrets-nested":
+            st.caption(
+                "Note: your key is under a section header in secrets.toml. It works, but "
+                "for clarity consider moving it to the top level as `GEMINI_API_KEY = \"...\"`."
+            )
     else:
-        st.warning("No API key found in secrets. Enter one below for local testing only.")
+        st.warning("No API key found in secrets or environment.")
+        with st.expander("🔧 Why isn't my secret being found?"):
+            st.code(_secrets_diagnostic(), language="text")
+            st.markdown(
+                "**Checklist:**\n"
+                "- In Streamlit Cloud: Manage app → Settings → Secrets, add exactly:\n"
+                "  ```toml\n  GEMINI_API_KEY = \"your-key-here\"\n  ```\n"
+                "- Click **Save**, then **reboot the app** — secrets don't apply until it restarts.\n"
+                "- Key name must match exactly (case-sensitive): `GEMINI_API_KEY`.\n"
+                "- Locally: create `.streamlit/secrets.toml` with the same line, in the "
+                "same folder as this script (and add it to `.gitignore`)."
+            )
         gemini_api_key = st.text_input(
-            "Gemini API Key",
+            "Gemini API Key (manual entry - local testing only)",
             type="password",
-            help="For production, set this in Streamlit Cloud's Secrets panel instead "
-                 "(Manage app -> Settings -> Secrets), as GEMINI_API_KEY = \"your-key\"."
+            help="For production, use Streamlit Cloud's Secrets panel instead."
         )
 
     st.caption(f"Primary model: `{GEMINI_MODEL_PRIMARY}`  \nFallback model: `{GEMINI_MODEL_FALLBACK}`")
