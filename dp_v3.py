@@ -466,35 +466,78 @@ if st.button("Predict Diabetes", type="primary"):
     st.subheader("Prediction Result")
 
     if predicted_class == 0:
-        st.success(f"✅ {name}: {predicted_label}  (confidence: {confidence:.1f}%)")
+        st.success(f"✅ {name}: {predicted_label}")
     elif predicted_class == 1:
-        st.info(f"🟡 {name}: {predicted_label}  (confidence: {confidence:.1f}%)")
+        st.info(f"🟡 {name}: {predicted_label}")
     elif predicted_class == 2:
-        st.warning(f"🟠 {name}: {predicted_label}  (confidence: {confidence:.1f}%)")
+        st.warning(f"🟠 {name}: {predicted_label}")
     else:
-        st.error(f"⚠️ {name}: {predicted_label}  (confidence: {confidence:.1f}%)")
+        st.error(f"⚠️ {name}: {predicted_label}")
 
     # -------------------------------------------
     # ADVANCED: PREDICTION CONFIDENCE BREAKDOWN
+    # (plain-language first, chart tucked away for anyone curious)
     # -------------------------------------------
 
-    st.subheader("📈 Prediction Confidence Breakdown")
+    st.subheader("🤔 How sure is the AI about this?")
+
     proba_df = pd.DataFrame({
         "Stage": [CLASS_LABELS[i] for i in range(len(proba))],
         "Probability (%)": proba * 100
-    })
-    fig_proba, ax_proba = plt.subplots(figsize=(4.5, 2.8), dpi=120)
-    colors = ["#55A868", "#4C72B0", "#DD8452", "#C44E52"]
-    ax_proba.bar(proba_df["Stage"], proba_df["Probability (%)"], color=colors)
-    ax_proba.set_ylabel("Probability (%)", fontsize=9)
-    ax_proba.set_title("Model Confidence Across All Stages", fontsize=10)
-    ax_proba.tick_params(labelsize=7)
-    plt.setp(ax_proba.get_xticklabels(), rotation=15, ha="right")
-    fig_proba.tight_layout()
+    }).sort_values("Probability (%)", ascending=False).reset_index(drop=True)
 
-    proba_col, _ = st.columns([1, 1])
-    with proba_col:
-        st.pyplot(fig_proba, use_container_width=False)
+    top_label = proba_df.loc[0, "Stage"]
+    top_pct = proba_df.loc[0, "Probability (%)"]
+    second_label = proba_df.loc[1, "Stage"]
+    second_pct = proba_df.loc[1, "Probability (%)"]
+    gap = top_pct - second_pct
+
+    if gap >= 30:
+        verdict = "The AI is quite confident about this result."
+        verdict_icon = "✅"
+    elif gap >= 15:
+        verdict = "The AI leans towards this result, but it isn't fully certain."
+        verdict_icon = "🟡"
+    else:
+        verdict = "This is a close call — the AI sees two results as almost equally likely."
+        verdict_icon = "🟠"
+
+    st.markdown(
+        f"### {verdict_icon} {verdict}\n\n"
+        f"Out of everything it checked, the AI is most confident this is "
+        f"**{top_label}** ({top_pct:.0f} out of 100 chance)."
+    )
+
+    if gap < 30:
+        st.markdown(
+            f"But it also thinks there's a real chance it could instead be "
+            f"**{second_label}** ({second_pct:.0f} out of 100 chance). "
+            f"When the AI is this unsure, it's worth double-checking with an actual "
+            f"blood test rather than relying on the app alone."
+        )
+
+    with st.expander("📊 See the full breakdown (for the curious)"):
+        st.caption(
+            "The AI doesn't just pick one answer — it rates how likely each of the "
+            "4 possible results is, and these always add up to 100%. The tallest bar "
+            "is the one shown as the main result above."
+        )
+        fig_proba, ax_proba = plt.subplots(figsize=(4.5, 2.8), dpi=120)
+        stage_colors = {
+            "Non-Diabetic": "#55A868", "Prediabetes Stage 1": "#4C72B0",
+            "Prediabetes Stage 2": "#DD8452", "Diabetic": "#C44E52"
+        }
+        bar_colors = [stage_colors[s] for s in proba_df["Stage"]]
+        ax_proba.bar(proba_df["Stage"], proba_df["Probability (%)"], color=bar_colors)
+        ax_proba.set_ylabel("Out of 100 chance", fontsize=9)
+        ax_proba.set_title("How likely is each possible result?", fontsize=10)
+        ax_proba.tick_params(labelsize=7)
+        plt.setp(ax_proba.get_xticklabels(), rotation=15, ha="right")
+        fig_proba.tight_layout()
+
+        proba_col, _ = st.columns([1, 1])
+        with proba_col:
+            st.pyplot(fig_proba, use_container_width=False)
 
     # -----------------------------------------------
     # GEMINI-POWERED REMEDIATION SUGGESTIONS
