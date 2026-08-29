@@ -6,3 +6,4 @@ numpy
 scikit-learn
 fpdf2
 google-genai
+yfinance
