@@ -15,3 +15,4 @@ geopy
 fpdf2
 google-genai
 yfinance
+pillow
