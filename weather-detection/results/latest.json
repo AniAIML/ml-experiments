@@ -1,70 +1,37 @@
 {
-  "generated_at": "2026-10-11T13:10:33.536624",
+  "generated_at": "2026-10-12T06:14:13.816474",
   "cities": [
     {
       "name": "Durgapur",
       "country": "IN",
       "latitude": 23.5204,
       "longitude": 87.3119,
-      "rain_windows": [
-        {
-          "kind": "rain",
-          "start": "2026-10-11T12:00:00",
-          "end": "2026-10-11T16:00:00",
-          "duration_minutes": 240,
-          "confidence_percent": 49.7,
-          "confidence_label": "low confidence"
-        }
-      ],
+      "rain_windows": [],
       "sunny_windows": [
         {
           "kind": "sunny",
-          "start": "2026-10-11T00:00:00",
-          "end": "2026-10-11T01:00:00",
-          "duration_minutes": 60,
-          "confidence_percent": 88.0,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-11T03:00:00",
-          "end": "2026-10-11T06:00:00",
-          "duration_minutes": 180,
-          "confidence_percent": 84.2,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-11T07:00:00",
-          "end": "2026-10-11T09:00:00",
-          "duration_minutes": 120,
-          "confidence_percent": 91.0,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-11T15:00:00",
-          "end": "2026-10-12T10:00:00",
-          "duration_minutes": 1140,
-          "confidence_percent": 95.0,
+          "start": "2026-10-12T00:00:00",
+          "end": "2026-10-12T09:00:00",
+          "duration_minutes": 540,
+          "confidence_percent": 90.1,
           "confidence_label": "high confidence"
         },
         {
           "kind": "sunny",
           "start": "2026-10-12T13:00:00",
-          "end": "2026-10-13T00:00:00",
-          "duration_minutes": 660,
-          "confidence_percent": 88.4,
+          "end": "2026-10-14T00:00:00",
+          "duration_minutes": 2100,
+          "confidence_percent": 95.0,
           "confidence_label": "high confidence"
         }
       ],
       "current": {
-        "time": "2026-10-11T18:00:00",
-        "temperature_c": 27.1,
-        "humidity": 78,
+        "time": "2026-10-12T11:00:00",
+        "temperature_c": 30.5,
+        "humidity": 59,
         "wind_speed": 4.1,
-        "pressure": 1000.7,
-        "precipitation_probability": 3
+        "pressure": 1003.2,
+        "precipitation_probability": 10
       }
     },
     {
@@ -72,57 +39,32 @@
       "country": "IN",
       "latitude": 23.6739,
       "longitude": 86.9524,
-      "rain_windows": [
-        {
-          "kind": "rain",
-          "start": "2026-10-11T12:00:00",
-          "end": "2026-10-11T16:00:00",
-          "duration_minutes": 240,
-          "confidence_percent": 46.4,
-          "confidence_label": "low confidence"
-        }
-      ],
+      "rain_windows": [],
       "sunny_windows": [
         {
           "kind": "sunny",
-          "start": "2026-10-11T00:00:00",
-          "end": "2026-10-11T01:00:00",
-          "duration_minutes": 60,
-          "confidence_percent": 84.0,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-11T02:00:00",
-          "end": "2026-10-11T09:00:00",
-          "duration_minutes": 420,
-          "confidence_percent": 89.2,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-11T14:00:00",
+          "start": "2026-10-12T00:00:00",
           "end": "2026-10-12T09:00:00",
-          "duration_minutes": 1140,
-          "confidence_percent": 95.0,
+          "duration_minutes": 540,
+          "confidence_percent": 82.9,
           "confidence_label": "high confidence"
         },
         {
           "kind": "sunny",
-          "start": "2026-10-12T13:00:00",
-          "end": "2026-10-13T00:00:00",
-          "duration_minutes": 660,
-          "confidence_percent": 87.5,
+          "start": "2026-10-12T10:00:00",
+          "end": "2026-10-14T00:00:00",
+          "duration_minutes": 2280,
+          "confidence_percent": 90.3,
           "confidence_label": "high confidence"
         }
       ],
       "current": {
-        "time": "2026-10-11T18:00:00",
-        "temperature_c": 27.2,
-        "humidity": 76,
-        "wind_speed": 0.5,
-        "pressure": 999.3,
-        "precipitation_probability": 2
+        "time": "2026-10-12T11:00:00",
+        "temperature_c": 30.1,
+        "humidity": 62,
+        "wind_speed": 4.3,
+        "pressure": 1001.9,
+        "precipitation_probability": 18
       }
     },
     {
@@ -130,49 +72,32 @@
       "country": "IN",
       "latitude": 22.5726,
       "longitude": 88.3639,
-      "rain_windows": [
-        {
-          "kind": "rain",
-          "start": "2026-10-11T13:00:00",
-          "end": "2026-10-11T17:00:00",
-          "duration_minutes": 240,
-          "confidence_percent": 50.3,
-          "confidence_label": "low confidence"
-        }
-      ],
+      "rain_windows": [],
       "sunny_windows": [
         {
           "kind": "sunny",
-          "start": "2026-10-11T00:00:00",
-          "end": "2026-10-11T09:00:00",
-          "duration_minutes": 540,
-          "confidence_percent": 91.6,
+          "start": "2026-10-12T00:00:00",
+          "end": "2026-10-13T20:00:00",
+          "duration_minutes": 2640,
+          "confidence_percent": 88.1,
           "confidence_label": "high confidence"
         },
         {
           "kind": "sunny",
-          "start": "2026-10-11T18:00:00",
-          "end": "2026-10-12T13:00:00",
-          "duration_minutes": 1140,
-          "confidence_percent": 87.0,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-12T14:00:00",
-          "end": "2026-10-13T00:00:00",
-          "duration_minutes": 600,
-          "confidence_percent": 90.7,
+          "start": "2026-10-13T22:00:00",
+          "end": "2026-10-14T00:00:00",
+          "duration_minutes": 120,
+          "confidence_percent": 95.0,
           "confidence_label": "high confidence"
         }
       ],
       "current": {
-        "time": "2026-10-11T18:00:00",
-        "temperature_c": 29.1,
-        "humidity": 73,
-        "wind_speed": 3.5,
-        "pressure": 1011.1,
-        "precipitation_probability": 20
+        "time": "2026-10-12T11:00:00",
+        "temperature_c": 32.6,
+        "humidity": 52,
+        "wind_speed": 3.8,
+        "pressure": 1013.2,
+        "precipitation_probability": 0
       }
     },
     {
@@ -180,49 +105,32 @@
       "country": "IN",
       "latitude": 23.2324,
       "longitude": 87.8615,
-      "rain_windows": [
-        {
-          "kind": "rain",
-          "start": "2026-10-11T13:00:00",
-          "end": "2026-10-11T15:00:00",
-          "duration_minutes": 120,
-          "confidence_percent": 46.5,
-          "confidence_label": "low confidence"
-        }
-      ],
+      "rain_windows": [],
       "sunny_windows": [
         {
           "kind": "sunny",
-          "start": "2026-10-11T00:00:00",
-          "end": "2026-10-11T10:00:00",
-          "duration_minutes": 600,
-          "confidence_percent": 85.8,
-          "confidence_label": "high confidence"
-        },
-        {
-          "kind": "sunny",
-          "start": "2026-10-11T14:00:00",
+          "start": "2026-10-12T00:00:00",
           "end": "2026-10-12T09:00:00",
-          "duration_minutes": 1140,
-          "confidence_percent": 90.0,
+          "duration_minutes": 540,
+          "confidence_percent": 95.0,
           "confidence_label": "high confidence"
         },
         {
           "kind": "sunny",
           "start": "2026-10-12T12:00:00",
-          "end": "2026-10-13T00:00:00",
-          "duration_minutes": 720,
-          "confidence_percent": 89.2,
+          "end": "2026-10-14T00:00:00",
+          "duration_minutes": 2160,
+          "confidence_percent": 94.4,
           "confidence_label": "high confidence"
         }
       ],
       "current": {
-        "time": "2026-10-11T18:00:00",
-        "temperature_c": 26.8,
-        "humidity": 84,
-        "wind_speed": 4.0,
-        "pressure": 1008.8,
-        "precipitation_probability": 0
+        "time": "2026-10-12T11:00:00",
+        "temperature_c": 30.5,
+        "humidity": 64,
+        "wind_speed": 5.2,
+        "pressure": 1011.1,
+        "precipitation_probability": 20
       }
     },
     {
@@ -234,28 +142,28 @@
       "sunny_windows": [
         {
           "kind": "sunny",
-          "start": "2026-10-11T00:00:00",
-          "end": "2026-10-11T09:00:00",
-          "duration_minutes": 540,
-          "confidence_percent": 85.5,
+          "start": "2026-10-12T00:00:00",
+          "end": "2026-10-12T11:00:00",
+          "duration_minutes": 660,
+          "confidence_percent": 85.3,
           "confidence_label": "high confidence"
         },
         {
           "kind": "sunny",
-          "start": "2026-10-11T14:00:00",
-          "end": "2026-10-13T00:00:00",
-          "duration_minutes": 2040,
-          "confidence_percent": 90.5,
+          "start": "2026-10-12T12:00:00",
+          "end": "2026-10-14T00:00:00",
+          "duration_minutes": 2160,
+          "confidence_percent": 91.8,
           "confidence_label": "high confidence"
         }
       ],
       "current": {
-        "time": "2026-10-11T18:00:00",
-        "temperature_c": 27.1,
-        "humidity": 81,
-        "wind_speed": 3.8,
-        "pressure": 1007.0,
-        "precipitation_probability": 19
+        "time": "2026-10-12T11:00:00",
+        "temperature_c": 30.7,
+        "humidity": 61,
+        "wind_speed": 6.3,
+        "pressure": 1009.3,
+        "precipitation_probability": 14
       }
     }
   ]
